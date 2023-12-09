@@ -9,10 +9,12 @@ class Board:
         self.game_table = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 
     def print_table(self):
-        print('---------')
+        print('  -------')
+        j = 4
         for i in self.game_table:
-            print('| ' + i[0] + ' ' + i[1] + ' ' + i[2] + ' |')
-        print('---------')
+            j -= 1
+            print(str(j) + '| ' + i[0] + ' ' + i[1] + ' ' + i[2] + ' |')
+        print('  -------\n   1 2 3  ')
 
     def result(self):
         # by diogonal
@@ -108,24 +110,24 @@ class Player(ABC):
 class User(Player):
     def get_move(self, board):
         while True:
-            coordinates = list(input("Enter the coordinates: "))
-            # minus in input
-            if '-' in coordinates:
-                print("Coordinates should be from 1 to 3")
+            coordinates = list(input("Enter next move coordinates: "))
+            #diffirent number of imputs
+            if len(coordinates) != 3 or coordinates[1] != ' ':
+                print('Input two numbers from 1 to 3 devided by space')
                 continue
             # not int
             try:
                 row = int(coordinates[2])
                 column = int(coordinates[0])
             except ValueError:
-                print("You should enter numbers!")
+                print("You should enter numbers")
                 continue
             # coordinates from 1 to 3
             if row < 1 or row > 3 or column < 1 or column > 3:
-                print("Coordinates should be from 1 to 3!")
+                print("Coordinates should be from 1 to 3")
                 continue
             elif board.game_table[3 - row][column - 1] != ' ':
-                print('This cell is occupied! Choose another one!')
+                print('This cell is occupied. Choose another one.')
                 continue
             else:
                 board.game_table[3 - row][column - 1] = self.symbol
@@ -227,14 +229,30 @@ class PlayerFactory:
 
 
 def game():
+    print('Welcome to the Tic-Tac-Toe game!\n')
+    print('Start the game = (level of a player1) (level of a player2)')
+    print('Show levels of a player = levels')
+    print('Rules of the game = rules')
+    print('Exit the game = exit\n')
     while True:
         command = input('Input command: ').split()
         if len(command) == 1 and command[0] == 'exit':
             sys.exit()
-        elif len(command) == 3:
-            if command[1] in PlayerFactory.players and command[2] in PlayerFactory.players:
-                player1, player2 = PlayerFactory.create_players(command[1], command[2])
-
+        elif len(command) == 1 and command[0] == 'rules':
+            print('\nThis is a 2-player game. The first player plays the X mark, and the second is O')
+            print('The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.')
+            board.print_table()
+            print('To make a user move choose from board coordinates from 1 to 3. First number horisontal, second is vertical')
+            print('Choose levels for your players to start the game.')
+        elif len(command) == 1 and command[0] == 'levels':
+            print('\nThere are 4 levels of players:')
+            print('user - manually put your symbol on the board')
+            print('easy - little bot who put their mark randomly')
+            print('medium - bot who tries to get a good move')
+            print('hard - AI bot using MinMax algorithm')
+        elif len(command) == 2:
+            if command[0] in PlayerFactory.players and command[1] in PlayerFactory.players:
+                player1, player2 = PlayerFactory.create_players(command[0], command[1])
                 board = Board()
                 board.print_table()
                 while True:
@@ -246,7 +264,11 @@ def game():
                         break
                 print(board.result())
         else:
-            print('Bad parameters!')
+            print('Bad parameters')
+            print('Start the game = (level of a player1) (level of a player2)')
+            print('Show levels of a player = levels')
+            print('Rules of the game = rules')
+            print('Exit the game = exit\n')
 
 
 game()
