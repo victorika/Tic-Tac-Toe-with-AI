@@ -230,26 +230,26 @@ class PlayerFactory:
 
 def game():
     print('Welcome to the Tic-Tac-Toe game!\n')
-    print('Start the game = (level of a player1) (level of a player2)')
-    print('Show levels of a player = levels')
-    print('Rules of the game = rules')
-    print('Exit the game = exit\n')
+    print('Input commands:')
+    print('(player1 lvl) (player2 lvl) -- Start the game')
+    print('levels\t-- Show player levels')
+    print('rules\t-- Rules of the game')
+    print('exit\t-- Exit the game\n')
     while True:
         command = input('Input command: ').split()
         if len(command) == 1 and command[0] == 'exit':
             sys.exit()
         elif len(command) == 1 and command[0] == 'rules':
-            print('\nThis is a 2-player game. The first player plays the X mark, and the second is O')
+            print('\nThis is a 2-player game. The first player plays the X mark, and the second is the O mark.')
             print('The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.')
-            board.print_table()
-            print('To make a user move choose from board coordinates from 1 to 3. First number horisontal, second is vertical')
+            print('Choose two board coordinates from 1 to 3 to make a user move. The first number is horizontal, and the second is vertical.')
             print('Choose levels for your players to start the game.')
         elif len(command) == 1 and command[0] == 'levels':
             print('\nThere are 4 levels of players:')
-            print('user - manually put your symbol on the board')
-            print('easy - little bot who put their mark randomly')
-            print('medium - bot who tries to get a good move')
-            print('hard - AI bot using MinMax algorithm')
+            print('user \t- manually put a mark on the board')
+            print('easy \t- bot put mark randomly on the board')
+            print('medium \t- bot "looking" a few steps ahead')
+            print('hard \t- AI bot using MinMax algorithm to prevent another player from winning')
         elif len(command) == 2:
             if command[0] in PlayerFactory.players and command[1] in PlayerFactory.players:
                 player1, player2 = PlayerFactory.create_players(command[0], command[1])
@@ -264,11 +264,10 @@ def game():
                         break
                 print(board.result())
         else:
-            print('Bad parameters')
-            print('Start the game = (level of a player1) (level of a player2)')
-            print('Show levels of a player = levels')
-            print('Rules of the game = rules')
-            print('Exit the game = exit\n')
-
+            print('Bad parameters\n')
+            print('(player1 lvl) (player2 lvl) -- Start the game')
+            print('levels\t-- Show player levels')
+            print('rules\t-- Rules of the game')
+            print('exit\t-- Exit the game\n')
 
 game()

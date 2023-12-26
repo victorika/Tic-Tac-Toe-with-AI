@@ -2,18 +2,19 @@
 
 Welcome to the Tic-Tac-Toe game!
 
-Start the game = start (level of player1) (level of player2)
-Show levels of a player = levels
-Rules of the game = rules
-Exit the game = exit
+Input commands:
+(player1 lvl) (player2 lvl) -- Start the game
+levels  -- Show player levels
+rules   -- Rules of the game
+exit    -- Exit the game
 
 Rules.
-This is a 2-player game. The first player plays the X mark, and the second is O.
+This is a 2-player game. The first player plays the X mark, and the second is the O mark.
 The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row is the winner.
-Choose levels for your players to start the game.
+Choose two board coordinates from 1 to 3 to make a user move. The first number is horizontal, and the second is vertical.
 
 There are 4 levels of players:
-user - manually put your symbol on the board
-easy - little bot who put their mark randomly
-medium - bot who tries to get a good move
-hard - AI bot using MinMax algorithm
+user    - manually put a mark on the board
+easy    - bot put mark randomly on the board
+medium  - bot "looking" a few steps ahead
+hard    - AI bot using MinMax algorithm to prevent another player from winning
